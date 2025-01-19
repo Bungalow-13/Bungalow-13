@@ -163,7 +163,7 @@
 
 /obj/item/food/badrecipe/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_GRILLED, .proc/OnGrill)
+	RegisterSignal(src, COMSIG_ITEM_GRILLED, PROC_REF(OnGrill))
 
 /obj/item/food/badrecipe/moldy
 	name = "moldy mess"
@@ -516,7 +516,7 @@
 
 /obj/item/food/chewable/lollipop/cyborg/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/food/chewable/lollipop/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)
@@ -575,7 +575,7 @@
 				bite_consumption = bite_consumption,\
 				microwaved_type = microwaved_type,\
 				junkiness = junkiness,\
-				on_consume = CALLBACK(src, .proc/OnConsume))
+				on_consume = CALLBACK(src, PROC_REF(OnConsume)))
 
 /obj/item/food/chewable/bubblegum/bubblegum/proc/OnConsume(mob/living/eater, mob/living/feeder)
 	if(iscarbon(eater))
@@ -611,7 +611,7 @@
 
 /obj/item/food/chewable/gumball/cyborg/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/food/chewable/gumball/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)
@@ -814,7 +814,7 @@
 				bite_consumption = bite_consumption,\
 				microwaved_type = microwaved_type,\
 				junkiness = junkiness,\
-				check_liked = CALLBACK(src, .proc/check_liked))
+				check_liked = CALLBACK(src, PROC_REF(check_liked)))
 
 /obj/item/food/rationpack/proc/check_liked(fraction, mob/M)	//Nobody likes rationpacks. Nobody.
 	return FOOD_DISLIKED

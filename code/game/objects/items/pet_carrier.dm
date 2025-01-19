@@ -264,7 +264,7 @@
 	if(occupants.len)
 		for(var/mob/living/simple_animal/mouse/mice in occupants)
 			if(prob(max(2, heated)))
-				addtimer(CALLBACK(src, .proc/commotion, mice), rand(0,9), TIMER_STOPPABLE)
+				addtimer(CALLBACK(src, PROC_REF(commotion), mice), rand(0,9), TIMER_STOPPABLE)
 	if(prob(50) && heated > 0)
 		heated -= 1
 	..()

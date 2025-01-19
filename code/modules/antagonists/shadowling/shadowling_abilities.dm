@@ -883,7 +883,7 @@
 /obj/effect/proc_holder/spell/self/lesser_shadow_walk/cast(mob/living/carbon/human/user)
 	user.visible_message(span_warning("[user] suddenly fades away!"), span_shadowling("You veil yourself in darkness, making you harder to see."))
 	user.alpha = 10
-	addtimer(CALLBACK(src, .proc/reappear, user), 40)
+	addtimer(CALLBACK(src, PROC_REF(reappear), user), 40)
 
 /obj/effect/proc_holder/spell/self/thrall_night_vision //Toggleable night vision for thralls
 	name = "Thrall Darksight"

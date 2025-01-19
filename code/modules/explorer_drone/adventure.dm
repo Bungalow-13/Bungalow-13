@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(explorer_drone_adventures)
 		if(!isnum(delay_time))
 			CRASH("Invalid delay in adventure [name]")
 		SEND_SIGNAL(src,COMSIG_ADVENTURE_DELAY_START,delay_time,delay_message)
-		addtimer(CALLBACK(src,.proc/finish_delay,exit_id),delay_time)
+		addtimer(CALLBACK(src, PROC_REF(finish_delay),exit_id),delay_time)
 		return
 	navigate_to_node(exit_id)
 

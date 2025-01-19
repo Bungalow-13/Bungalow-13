@@ -126,7 +126,7 @@
 	user.visible_message("<span class='warning'>[user] points [user.p_their()] blade towards [T] as a lightning bolt appears!</span>", "<span class='notice'>You release blade's energy at [T]!</span>", "<span class='warning'>You hear an electric discharge!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40, 1)
 	new /obj/effect/temp_visual/cult/turf/floor(T)
-	addtimer(CALLBACK(src, .proc/send_bolt, T, user), 5)
+	addtimer(CALLBACK(src, PROC_REF(send_bolt), T, user), 5)
 
 /obj/item/necromancer_sword/proc/send_bolt(turf/T, mob/living/user)
 	var/turf/lightning_source = get_step(get_step(T, NORTH), NORTH)

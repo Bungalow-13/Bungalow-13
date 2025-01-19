@@ -36,7 +36,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	to_chat(user, "The [insert_item] has been inserted into [src].")
 	world_compare = world.time + process_speed
-	addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
+	addtimer(CALLBACK(src, PROC_REF(do_machine_process)), process_speed)
 
 /obj/machinery/xenoarch/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -78,12 +78,12 @@
 			var/obj/item/xenoarch/strange_rock/strange_rock = check_item
 			if(!do_after(user, xenoarch_bag.insert_speed, target = src))
 				world_compare = world.time + process_speed
-				addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
+				addtimer(CALLBACK(src, PROC_REF(do_machine_process)), process_speed)
 				return
 			strange_rock.forceMove(holding_storage)
 			to_chat(user, "The strange rock has been inserted into [src].")
 		world_compare = world.time + process_speed
-		addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
+		addtimer(CALLBACK(src, PROC_REF(do_machine_process)), process_speed)
 		return
 	if(istype(weapon, /obj/item/xenoarch/strange_rock))
 		insert_xeno_item(weapon, user)
@@ -119,7 +119,7 @@
 	qdel(remove_item)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	world_compare = world.time + process_speed
-	addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
+	addtimer(CALLBACK(src, PROC_REF(do_machine_process)), process_speed)
 
 /obj/machinery/xenoarch/digger
 	name = "xenoarch digger"
@@ -136,12 +136,12 @@
 			var/obj/item/xenoarch/strange_rock/strange_rock = check_item
 			if(!do_after(user, 1 SECONDS, target = src))
 				world_compare = world.time + (process_speed * 4)
-				addtimer(CALLBACK(src, .proc/do_machine_process), (process_speed * 4))
+				addtimer(CALLBACK(src, PROC_REF(do_machine_process)), (process_speed * 4))
 				return
 			strange_rock.forceMove(holding_storage)
 			to_chat(user, "The strange rock has been inserted into [src].")
 		world_compare = world.time + (process_speed * 4)
-		addtimer(CALLBACK(src, .proc/do_machine_process), (process_speed * 4))
+		addtimer(CALLBACK(src, PROC_REF(do_machine_process)), (process_speed * 4))
 		return
 	if(istype(weapon, /obj/item/xenoarch/strange_rock))
 		insert_xeno_item(weapon, user)
@@ -165,7 +165,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(strange_rock)
 	world_compare = world.time + (process_speed * 4)
-	addtimer(CALLBACK(src, .proc/do_machine_process), (process_speed * 4))
+	addtimer(CALLBACK(src, PROC_REF(do_machine_process)), (process_speed * 4))
 
 /obj/machinery/xenoarch/scanner
 	name = "xenoarch scanner"
@@ -205,7 +205,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(delete_obj)
 	world_compare = world.time + process_speed
-	addtimer(CALLBACK(src, .proc/do_machine_process), process_speed)
+	addtimer(CALLBACK(src, PROC_REF(do_machine_process)), process_speed)
 
 /obj/machinery/xenoarch/recoverer/do_machine_process()
 	if(!holding_storage.contents.len)

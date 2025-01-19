@@ -97,13 +97,13 @@
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
-	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, .proc/on_pipe_eject)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 	if(mapload) //Don't rot at roundstart for the love of god
 		return
 	if(already_rotting)
 		start_rotting(rename=FALSE)
 	else
-		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(start_rotting)), 2 MINUTES)
 
 /obj/effect/decal/cleanable/blood/gibs/proc/start_rotting(rename=TRUE)
 	if(rename)

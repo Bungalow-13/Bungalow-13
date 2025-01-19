@@ -32,7 +32,7 @@
 
 /datum/job/captain_green/announce(mob/living/carbon/human/H)
 	..()
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "[H.real_name] is now in command of the station!")) // Tegu Edit: Alt Titles end
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, PROC_REF(minor_announce), "[H.real_name] is now in command of the station!")) // Tegu Edit: Alt Titles end
 
 
 

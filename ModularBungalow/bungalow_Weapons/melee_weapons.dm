@@ -488,7 +488,7 @@
 
 /atom/proc/xBeam(atom/BeamTarget,icon_state="xbeam",icon='ModularBungalow/zbungalowicons/effects.dmi',time=INFINITY,maxdistance=INFINITY,beam_type=/obj/effect/ebeam)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type)
-	INVOKE_ASYNC(newbeam, /datum/beam/.proc/Start)
+	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam
 
 /datum/action/innate/xdash
@@ -542,7 +542,7 @@
 		spot1.xBeam(spot2,beam_effect,time=2 SECONDS)
 		current_charges--
 		holder.update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/charge), charge_rate)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 
 /datum/action/innate/xdash/proc/charge()
 	current_charges = clamp(current_charges + 1, 0, max_charges)

@@ -146,13 +146,13 @@
 /obj/item/clothing/suit/hooded/cloak/godslayer/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_OCLOTHING)
-		RegisterSignal(user, COMSIG_MOB_STATCHANGE, .proc/resurrect)
+		RegisterSignal(user, COMSIG_MOB_STATCHANGE, PROC_REF(resurrect))
 		return
-	UnregisterSignal(user, COMSIG_MOB_STATCHANGE, .proc/resurrect)
+	UnregisterSignal(user, COMSIG_MOB_STATCHANGE, PROC_REF(resurrect))
 
 /obj/item/clothing/suit/hooded/cloak/godslayer/dropped(mob/user)
 	..()
-	UnregisterSignal(user, COMSIG_MOB_STATCHANGE, .proc/resurrect)
+	UnregisterSignal(user, COMSIG_MOB_STATCHANGE, PROC_REF(resurrect))
 
 /obj/item/clothing/suit/hooded/cloak/godslayer/proc/resurrect(mob/living/carbon/user, new_stat)
 	if(new_stat > CONSCIOUS && new_stat < DEAD && COOLDOWN_FINISHED(src, effect_cooldown))

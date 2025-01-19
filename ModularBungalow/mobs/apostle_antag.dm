@@ -97,14 +97,14 @@
 			ap_team.victory_state = "death_rapture"
 		else
 			ap_team.victory_state = "death"
-	addtimer(CALLBACK(src, .proc/soundd_in), (number * 6))
+	addtimer(CALLBACK(src, PROC_REF(soundd_in)), (number * 6))
 
 /datum/antagonist/apostle/proc/soundd_in()
 	var/mob/living/carbon/human/H = owner.current
 	var/turf/T = get_turf(H)
 	playsound(H, 'ModularTegustation/Tegusounds/apostle/mob/apostle_death_final.ogg', 60, TRUE, TRUE)
 	new /obj/effect/temp_visual/cult/sparks(T)
-	addtimer(CALLBACK(src, .proc/drop_dust), 25)
+	addtimer(CALLBACK(src, PROC_REF(drop_dust)), 25)
 
 /datum/antagonist/apostle/proc/drop_dust()
 	var/mob/living/carbon/human/H = owner.current

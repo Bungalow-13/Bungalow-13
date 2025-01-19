@@ -51,7 +51,7 @@
 			if(!canconsume(M, user))
 				return
 			to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
-		addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5, TRUE, TRUE, FALSE, user, FALSE, INGEST), 5)
+		addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5, TRUE, TRUE, FALSE, user, FALSE, INGEST), 5)
 		playsound(M.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 		if(iscarbon(M))
 			var/mob/living/carbon/carbon_drinker = M

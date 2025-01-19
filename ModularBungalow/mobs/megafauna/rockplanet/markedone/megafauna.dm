@@ -103,7 +103,7 @@
 	if(charging && (get_dist(src, target) <= 1))
 		Bump(target)
 	if(. && prob(5 * phase))
-		INVOKE_ASYNC(src, .proc/teleport, target)
+		INVOKE_ASYNC(src, PROC_REF(teleport), target)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/Move(atom/newloc, dir, step_x, step_y)
 	if(spinning || stunned)
@@ -145,13 +145,13 @@
 			if(. && charging)
 				chargetiles++
 				if(chargetiles >= chargerange)
-					INVOKE_ASYNC(src, .proc/discharge)
+					INVOKE_ASYNC(src, PROC_REF(discharge))
 		return FALSE
 	. = ..()
 	if(. && charging)
 		chargetiles++
 		if(chargetiles >= chargerange)
-			INVOKE_ASYNC(src, .proc/discharge)
+			INVOKE_ASYNC(src, PROC_REF(discharge))
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/Bump(atom/A)
 	. = ..()
@@ -172,7 +172,7 @@
 		return
 	if(anger_timer_id)
 		deltimer(anger_timer_id)
-	anger_timer_id = addtimer(CALLBACK(src, .proc/get_calm), MARKED_ONE_ANGER_DURATION, TIMER_STOPPABLE)
+	anger_timer_id = addtimer(CALLBACK(src, PROC_REF(get_calm)), MARKED_ONE_ANGER_DURATION, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/hostile/megafauna/gladiator/proc/get_calm()
 	if(anger_timer_id)
@@ -326,24 +326,24 @@
 	switch(phase)
 		if(1)
 			if(prob(25) && (get_dist(src, target) <= spinning_range))
-				INVOKE_ASYNC(src, .proc/spinattack)
+				INVOKE_ASYNC(src, PROC_REF(spinattack))
 				ranged_cooldown += 7 SECONDS
 			else
 				if(prob(66))
-					INVOKE_ASYNC(src, .proc/charge, target, 21)
+					INVOKE_ASYNC(src, PROC_REF(charge), target, 21)
 					ranged_cooldown += 4 SECONDS
 				else
-					INVOKE_ASYNC(src, .proc/teleport, target)
+					INVOKE_ASYNC(src, PROC_REF(teleport), target)
 					ranged_cooldown += 3.5 SECONDS
 		if(2)
 			if(prob(40) && (get_dist(src, target) <= spinning_range))
-				INVOKE_ASYNC(src, .proc/spinattack)
+				INVOKE_ASYNC(src, PROC_REF(spinattack))
 				ranged_cooldown += 5.5 SECONDS
 			else
-				INVOKE_ASYNC(src, .proc/teleport, target)
+				INVOKE_ASYNC(src, PROC_REF(teleport), target)
 				ranged_cooldown += 3 SECONDS
 		if(3)
-			INVOKE_ASYNC(src, .proc/teleport, target)
+			INVOKE_ASYNC(src, PROC_REF(teleport), target)
 			ranged_cooldown += 2 SECONDS
 
 #undef MARKED_ONE_STUN_DURATION

@@ -99,13 +99,13 @@
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
-				if(health <= maxHealth/10)
-					final_attack()
-				else
-					telegraph()
-					INVOKE_ASYNC(src, /atom/movable.proc/say, "Judgement.", null, list("colossus", "yell"))
-					select_spiral_attack()
-					ranged_cooldown = world.time + 30
+				//if(health <= maxHealth/10)
+				//	final_attack()
+				//else
+				telegraph()
+				INVOKE_ASYNC(src, /atom/movable.proc/say, "Judgement.", null, list("colossus", "yell"))
+				select_spiral_attack()
+				ranged_cooldown = world.time + 30
 			if(2)
 				telegraph()
 				INVOKE_ASYNC(src, /atom/movable.proc/say, "Wrath.", null, list("colossus", "yell"))
@@ -142,13 +142,7 @@
 			blast()
 		if(4)
 			alternating_dir_shots()
-		if(5)
-			final_attack()
-
-	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
-		INVOKE_ASYNC(src, /atom/movable.proc/say, "Die..", null, list("colossus", "yell"))
-		random_attack_num = 5
-	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
+	if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
 		INVOKE_ASYNC(src, /atom/movable.proc/say, "Judgement.", null, list("colossus", "yell"))
 		random_attack_num = 1
 	else
@@ -191,35 +185,8 @@
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
-	spiral_shoot(FALSE, 8)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
-	var/finale_counter = 10
-	var/turf/U = get_turf(src)
-	invulnerable_finale = TRUE
-	for(var/i in 1 to 20)
-		if(finale_counter > 4)
-			telegraph()
-			INVOKE_ASYNC(src, /atom/movable.proc/say, "Die!!", null, list("colossus", "yell"))
-			blast()
-		if(finale_counter > 1)
-			finale_counter--
-		for(var/T in RANGE_TURFS(12, U) - U)
-			if(prob(min(finale_counter, 2)))
-				shoot_projectile(T)
-		sleep(finale_counter + 1)
-	for(var/ii in 1 to 3)
-		telegraph()
-		INVOKE_ASYNC(src, /atom/movable.proc/say, "Die..", null, list("colossus", "yell"))
-		random_shots()
-		finale_counter += 6
-		sleep(finale_counter)
-	for(var/iii in 1 to 4)
-		telegraph()
-		INVOKE_ASYNC(src, /atom/movable.proc/say, "Die..", null, list("colossus", "yell"))
-		invulnerable_finale = FALSE
-		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
@@ -301,7 +268,7 @@
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target
-	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(!stat)

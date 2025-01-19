@@ -147,7 +147,7 @@
 		if(!death_candidates.len) // No more candidates left? Let's stop picking through the list.
 			break
 		H = pick(death_candidates)
-		addtimer(CALLBACK(src, .proc/eviscerate, H), i*4)
+		addtimer(CALLBACK(src, PROC_REF(eviscerate), H), i*4)
 		death_candidates.Remove(H)
 
 /mob/living/simple_animal/hostile/megafauna/claw/proc/eviscerate(mob/living/carbon/human/target)
@@ -156,7 +156,7 @@
 	playsound(target, 'ModularTegustation/Tegusounds/claw/eviscerate1.ogg', 100, 1)
 	playsound(src, 'ModularTegustation/Tegusounds/claw/eviscerate1.ogg', 1, 1)
 	to_chat(target, "<span class='danger'>The [src] is going to hunt you down!</span>")
-	addtimer(CALLBACK(src, .proc/eviscerate2, target, uhoh), 30)
+	addtimer(CALLBACK(src, PROC_REF(eviscerate2), target, uhoh), 30)
 
 /mob/living/simple_animal/hostile/megafauna/claw/proc/eviscerate2(mob/living/carbon/human/target, obj/effect/eff)
 	if(prob(2) || target.z != z || !target.loc.AllowClick() || !target) // Be happy, mortal. Did you just hide in a locker?
@@ -190,7 +190,7 @@
 	for(var/i in 1 to distance)
 		new /obj/effect/temp_visual/cult/sparks(T)
 		T = get_step(T, dir_to_target)
-	addtimer(CALLBACK(src, .proc/swift_dash2, dir_to_target, 0, distance), wait_time)
+	addtimer(CALLBACK(src, PROC_REF(swift_dash2), dir_to_target, 0, distance), wait_time)
 	playsound(src, 'ModularTegustation/Tegusounds/claw/prepare.ogg', 100, 1)
 
 /mob/living/simple_animal/hostile/megafauna/claw/proc/swift_dash2(move_dir, times_ran, distance_run)
@@ -205,4 +205,4 @@
 		L.Knockdown(15)
 		L.attack_animal(src)
 		new /obj/effect/temp_visual/cleave(L.loc)
-	addtimer(CALLBACK(src, .proc/swift_dash2, move_dir, (times_ran + 1), distance_run), 0.5)
+	addtimer(CALLBACK(src, PROC_REF(swift_dash2), move_dir, (times_ran + 1), distance_run), 0.5)
